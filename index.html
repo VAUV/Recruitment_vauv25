@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team VAUV Recruitment</title>
+    <meta name="description" content="Team VAUV Recruitment Questionnaire" />
+    <meta name="author" content="Dhanvanth.y -22BCE3760" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=KoHo:wght@400;500;600;700&display=swap" />
+    <link id="stylesheet-css" rel="stylesheet" href="stylesheet.css" />
+    <link id="styles-css" rel="stylesheet" href="styles.css" disabled />
+    <style>
+        .container3 {
+            visibility: hidden;
+            opacity: 0;
+            display: none;
+        }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="loader">
+        <h1 class="counter">0</h1>
+
+        <div class="site-teaser">
+            <span>vanakkam</span>
+        </div>
+
+        <div class="circles">
+            <div class="circle circle-outer"></div>
+            <div class="circle circle-inner"></div>
+            <div class="circle-inner-rotator"></div>
+            <div class="block"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to <span>Team VAUV</span></h1>
+    </div>
+
+    <div class="container2">
+        <div class="data">enrollments / registrations</div>
+    </div>
+
+    <div class="container3">
+        <div class="quiz-card">
+          <div class="card-header">
+            <div>
+              <h1 class="title">Team VAUV Recruitment</h1>
+              <p class="subtitle">Welcome, recruit. You've either made a brilliant decision or a terrible mistake—only time will tell.</p>
+            </div>
+            <div class="step-indicator">
+              <span id="current-step">1</span>
+            </div>
+          </div>
+          
+          <div class="card-content">
+            <div id="quiz-sections">
+              <!-- Quiz sections will be dynamically inserted here -->
+            </div>
+          </div>
+          
+          <div class="card-footer">
+            <button id="prev-btn" class="btn btn-outline" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+              Previous
+            </button>
+            
+            <button id="next-btn" class="btn btn-primary">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 5 7 7-7 7"/><path d="M5 12h14"/></svg>
+            </button>
+            
+            <button id="submit-btn" class="btn btn-primary hidden">
+              Submit
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div id="progress-fill"></div>
+          </div>
+          <div id="progress-steps"></div>
+        </div>
+    </div>
+  
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <p>Submitting your application...</p>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
+    <script src="script.js"></script>
+    <script> 
+        function startLoader() { 
+            let counterElement = document.querySelector(".counter");
+            let currentValue =0;
+
+            function updateCounter() { 
+                if (currentValue=== 100) { 
+                    return; 
+                } 
+                currentValue += Math.floor(Math.random()* 10) +1; 
+                if (currentValue > 100){
+                    currentValue =100; 
+                } 
+                
+                counterElement.textContent = currentValue +"%";
+
+                let delay  = Math.floor(Math.random()*200)+250;
+                setTimeout(updateCounter, delay);
+            }
+
+            updateCounter();
+        }
+        startLoader();
+
+        gsap.from(".circles", 2, { 
+            top: "-100%", 
+            ease: "elastic.out", 
+            delay: 0.5, 
+        }); 
+
+        gsap.to(".circle-inner", 1, {
+            width: "75px", 
+            height: "75px", 
+            ease: "power4.inOut", 
+            delay: 2,
+        });
+
+        gsap.to(".circle-inner-rotator", 1, { 
+            scale: 1, 
+            ease: "power4.inOut", 
+            delay: 2.5, 
+        }); 
+
+        gsap.to(".circles", 1.5, { 
+            rotation: 360, 
+            ease: "power4.inout", 
+            delay: 3, 
+        }); 
+
+        gsap.to(".block", 0.75, { 
+            display: "block" ,
+            height: "200px", 
+            ease: "power4.inOut", 
+            delay: 4, 
+        });
+
+        gsap.to(".block", 0.75, { 
+            width: "800px" ,
+            ease: "power4.inOut", 
+            delay: 4.5, 
+        }); 
+
+        gsap.fromTo(".container", { 
+            duration: 2, 
+            left: "100%", 
+            scale: 0.5, 
+            ease: "power4.inOut" ,
+            delay: 4,
+            }, { 
+                duration: 2, 
+                left: "50%", 
+                scale: 0.5,
+                transform: "translateX(-50%)", 
+                ease: "power4.inOut", 
+                delay: 4,
+            }
+        );
+
+        gsap.to(".block", 1.5, { 
+            width: "0px", 
+            ease: "power4.inout", 
+            delay: 5, 
+        }); 
+
+        gsap.to(".block", 1.5, { 
+            width: "0px", 
+            ease: "power4.inout", 
+            delay: 6, 
+        });
+
+        gsap.to(".circles", 1.5, { 
+            rotation: 0, 
+            ease: "power4.inOut", 
+            delay: 6.5, 
+        }); 
+
+        gsap.to(".loader", 2.5, { 
+            scale: 0, 
+            ease: "power4.inOut", 
+            delay: 7, 
+        }); 
+
+        gsap.to(".container", 2, {
+            scale: 1, 
+            ease: "power4.inOut", 
+            delay: 7.5,
+        });
+
+        // New animations
+        gsap.to(".container", 0.5, {
+            className: "+=glitch",
+            ease: "power4.inOut",
+            delay: 9.5,
+        });
+
+        gsap.to("body", 0.5, {
+            backgroundColor: "black",
+            ease: "power4.inOut",
+            delay: 9,
+        });
+
+        // Update the container2 animation
+        gsap.to(".container2", 1, {
+            opacity: 1,
+            ease: "power4.inOut",
+            delay: 10,
+            onStart: function() {
+                gsap.set(".container", {
+                    opacity: 0,
+                    visibility: "hidden"
+                });
+                gsap.set(".container3", {
+                    visibility: "hidden",
+                    display: "none",
+                    opacity: 0
+                });
+            },
+            onComplete: function() {
+                const text = baffle(".data");
+                text.set({
+                    characters: "██> █▒▓▒░ ▒▓▒▒█ █/█ ▒█▒▒░ ▓//> ▓░░ █▒><",
+                    speed: 120
+                });
+                text.start();
+                text.reveal(4000);
+            }
+        });
+
+        // gsap.to(".container2", 1, {
+        //     opacity: 1,
+        //     ease: "power4.inOut",
+        //     delay: 10,
+        //     onStart: function() {
+        //         const container = document.querySelector(".container");
+        //         if (container) {
+        //             container.style.opacity = 0;
+        //         } else {
+        //             console.error("Element with class 'container' not found.");
+        //         }
+        //     },
+        //     onComplete: function() {
+        //         const text = baffle(".data");
+        //         text.set({
+        //             characters: "██> █▒▓▒░ ▒▓▒▒█ █/█ ▒█▒▒░ ▓//> ▓░░ █▒><",
+        //             speed: 120
+        //         });
+        //         text.start();
+        //         text.reveal(4000);
+        //     }
+        // });
+
+        gsap.to(".container3", 1, {
+            opacity: 1,
+            display: "block",
+            visibility: "visible",
+            ease: "power4.inOut",
+            delay: 15, // Adjust the delay to ensure it starts after container2 is fully shown
+            
+            // onStart: function() {
+            //     const container = document.querySelector(".container");
+            //     const container2 = document.querySelector(".container2");
+            //     if (container) {
+            //         container.style.opacity = 0;
+            //         container.style.zIndex = -9999; // Move container to the back
+            //     } else {
+            //         console.error("Element with class 'container' not found.");
+            //     }
+            //     if (container2) {
+            //         container2.style.opacity = 0;
+            //     } else {
+            //         console.error("Element with class 'container2' not found.");
+            //     }
+
+            //     // Bring container3 to the front
+            //     const container3 = document.querySelector(".container3");
+            //     if (container3) {
+            //         container3.style.zIndex = 9999;
+            //     }
+
+            //     // Switch stylesheets
+            //     document.getElementById('stylesheet-css').remove();
+            //     document.getElementById('styles-css').disabled = false;
+            // }
+
+            onStart: function() {
+                // Hide container and container2
+                gsap.set([".container", ".container2"], {
+                    opacity: 0,
+                    display: "none",
+                    visibility: "hidden",
+                    zIndex: -9999
+                });
+
+                // Bring container3 to front
+                gsap.set(".container3", {
+                    zIndex: 9999,
+                    display: "block",
+                    visibility: "visible"
+                });
+
+                // Switch stylesheets
+                const stylesheetCSS = document.getElementById('stylesheet-css');
+                const stylesCSS = document.getElementById('styles-css');
+                
+                if (stylesheetCSS) {
+                    stylesheetCSS.remove();
+                }
+                if (stylesCSS) {
+                    stylesCSS.disabled = false;
+                }
+            }
+        });
+
+    </script>
+  </body>
+</html>
