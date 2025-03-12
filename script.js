@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <div class="whatsapp-section">
               <h2>Join Our WhatsApp Group</h2>
-              <img src="assets/qr.png" alt="WhatsApp Group QR Code" class="whatsapp-qr" />
+              <img src="assets/qr2.png" alt="WhatsApp Group QR Code" class="whatsapp-qr" />
               <p>Scan the QR code or <a href="https://chat.whatsapp.com/Jgxo5bYnz6GCE0P388Npn0" target="_blank" rel="noopener noreferrer">click here</a> to join the group</p>
             </div>
           </div>
