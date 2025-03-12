@@ -23,12 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
       {
         id: 2,
         title: "Choose Your Path",
-        subtitle: "A.K.A. Pick Your Poison",
+        subtitle: "A.K.A. Pick Your Poison (Select up to 2 domains)",
         questions: [
           {
             id: "domain",
             label: "Which domain do you want to sell your soul—uh, we mean, contribute to?",
-            type: "radio",
+            type: "checkbox",  // Changed from 'radio' to 'checkbox'
+            maxSelect: 2,     // New property to limit selections
             options: [
               { value: "management", label: "Management (You enjoy herding cats and handling chaos?)" },
               { value: "electrical", label: "Electrical (You have a shocking interest in circuits?)" },
@@ -65,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
             id: "provingMethod",
             type: "radio",
             options: [
-              { value: "test", label: "Take a test. (Select your preferred date and time. No, you can't Google the answers.)" },
-              { value: "task", label: "Do a task. (Ah, a true warrior. Respect.)" },
-              { value: "easy", label: "Easy mode: A warm-up to see if you can handle the heat." },
-              { value: "hard", label: "Hard mode: A test of willpower. Will you regret it? Maybe. Will we respect you? Definitely." }
+              { value: "test", label: "Take a test. (Will let you know the date and time soon. No, you can't Google the answers.)" },
+              // { value: "task", label: "Do a task. (Ah, a true warrior. Respect.)" },
+              { value: "easy_task", label: "Do a task. Easy mode: A warm-up to see if you can handle the heat." },
+              { value: "hard_task", label: "Do a task. Hard mode: A test of willpower. Will you regret it? Maybe. Will we respect you? Definitely." }
             ]
           }
         ]
@@ -118,6 +119,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <svg class="award-icon" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
             <p class="final-message">${section.content}</p>
             <p class="success-message">Your application has been submitted!</p>
+
+            <div class="whatsapp-section">
+              <h2>Join Our WhatsApp Group</h2>
+              <img src="assets/qr.png" alt="WhatsApp Group QR Code" class="whatsapp-qr" />
+              <p>Scan the QR code or <a href="YOUR_WHATSAPP_LINK" target="_blank" rel="noopener noreferrer">click here</a> to join the group</p>
+            </div>
           </div>
         `;
         nextBtn.classList.add('hidden');
@@ -171,7 +178,51 @@ document.addEventListener('DOMContentLoaded', function() {
               answers[question.id] = e.target.value;
             });
             questionGroup.appendChild(input);
-          } else if (question.type === 'radio' && question.options) {
+           } else if (question.type === 'checkbox' && question.options) {
+            const checkboxGroup = document.createElement('div');
+            checkboxGroup.classList.add('checkbox-group');
+            
+            // Initialize answers array if it doesn't exist
+            if (!answers[question.id]) {
+                answers[question.id] = [];
+            }
+            
+            question.options.forEach(option => {
+                const checkboxOption = document.createElement('label');
+                checkboxOption.classList.add('checkbox-option');
+                
+                const checkboxInput = document.createElement('input');
+                checkboxInput.type = 'checkbox';
+                checkboxInput.id = `${question.id}-${option.value}`;
+                checkboxInput.name = question.id;
+                checkboxInput.value = option.value;
+                checkboxInput.checked = answers[question.id].includes(option.value);
+                
+                // Handle checkbox change
+                checkboxInput.addEventListener('change', () => {
+                    if (checkboxInput.checked) {
+                        // If trying to select more than maxSelect, prevent it
+                        if (answers[question.id].length >= question.maxSelect) {
+                            checkboxInput.checked = false;
+                            alert(`You can only select up to ${question.maxSelect} domains`);
+                            return;
+                        }
+                        answers[question.id].push(option.value);
+                    } else {
+                        answers[question.id] = answers[question.id].filter(value => value !== option.value);
+                    }
+                });
+                
+                const checkboxLabel = document.createTextNode(option.label);
+                
+                checkboxOption.appendChild(checkboxInput);
+                checkboxOption.appendChild(checkboxLabel);
+                checkboxGroup.appendChild(checkboxOption);
+            });
+            
+            questionGroup.appendChild(checkboxGroup);
+        }
+          else if (question.type === 'radio' && question.options) {
             const radioGroup = document.createElement('div');
             radioGroup.classList.add('radio-group');
             
@@ -294,6 +345,12 @@ document.addEventListener('DOMContentLoaded', function() {
         canSubmit = false;
       }
       
+      // Check if at least one domain is selected
+      if (!answers.domain || answers.domain.length === 0) {
+        alert('Please select at least one domain');
+        canSubmit = false;
+      }
+
       if (canSubmit) {
         // Show loading overlay
         loadingOverlay.classList.remove('hidden');
