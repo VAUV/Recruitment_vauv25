@@ -109,11 +109,11 @@ The portal consists of three main sections:
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License 
 
 ## 👥 Authors
 
-- **Dhanvanth.y** - *Initial work* - [Your GitHub Profile](https://github.com/dhanvanth-dev)
+- **Dhanvanth.y** - *Initial work by* - [dhanvanth-dev](https://github.com/dhanvanth-dev)
 
 ## 🙏 Acknowledgments
 
