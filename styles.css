@@ -464,3 +464,34 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.info-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.info-section li {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.info-section .note {
+  margin-top: 1.5rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.info-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
