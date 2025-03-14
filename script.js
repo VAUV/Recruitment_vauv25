@@ -59,21 +59,38 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         id: 4,
-        title: "How Would You Like to Prove Your Worth?",
-        subtitle: "Choose wisely. Your reputation depends on it.",
-        questions: [
-          {
-            id: "provingMethod",
-            type: "radio",
-            options: [
-              { value: "test", label: "Take a test. (Will let you know the date and time soon. No, you can't Google the answers.)" },
-              // { value: "task", label: "Do a task. (Ah, a true warrior. Respect.)" },
-              { value: "easy_task", label: "Do a task. Easy mode: A warm-up to see if you can handle the heat." },
-              { value: "hard_task", label: "Do a task. Hard mode: A test of willpower. Will you regret it? Maybe. Will we respect you? Definitely." }
-            ]
-          }
-        ]
-      },
+        title: "What Comes Next?",
+        subtitle: "Important Information About Your Application Process",
+        content: `
+            <div class="info-section">
+                <p>Once you submit this form, you'll be added to our WhatsApp community where we'll announce:</p>
+                <ul>
+                    <li>📝 Test dates and details</li>
+                    <li>⚡ Task assignments and deadlines</li>
+                    <li>📢 Important updates about the recruitment process</li>
+                </ul>
+                <p class="note">Stay tuned! Your journey with Team VAUV is about to begin.</p>
+            </div>
+        `,
+        info: true // New property to identify info-only sections
+    },
+      // {
+      //   id: 4,
+      //   title: "How Would You Like to Prove Your Worth?",
+      //   subtitle: "Choose wisely. Your reputation depends on it.",
+      //   questions: [
+      //     {
+      //       id: "provingMethod",
+      //       type: "radio",
+      //       options: [
+      //         { value: "test", label: "Take a test. (Will let you know the date and time soon. No, you can't Google the answers.)" },
+      //         // { value: "task", label: "Do a task. (Ah, a true warrior. Respect.)" },
+      //         { value: "easy_task", label: "Do a task. Easy mode: A warm-up to see if you can handle the heat." },
+      //         { value: "hard_task", label: "Do a task. Hard mode: A test of willpower. Will you regret it? Maybe. Will we respect you? Definitely." }
+      //       ]
+      //     }
+      //   ]
+      // },
       {
         id: 5,
         title: "Submission Complete",
@@ -149,6 +166,14 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionEl.appendChild(subtitleEl);
       }
       
+      // Add content
+      const contentEl = document.createElement('div');
+      contentEl.classList.add('info-content');
+      contentEl.innerHTML = section.content;
+      sectionEl.appendChild(contentEl);
+      
+      quizSections.appendChild(sectionEl);
+
       // Add questions
       if (section.questions) {
         section.questions.forEach(question => {
@@ -340,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let canSubmit = true;
       
       // Check if all required fields are filled
-      if (!answers.name || !answers.regNumber || !answers.domain || !answers.discovery || !answers.provingMethod) {
+      if (!answers.name || !answers.regNumber || !answers.domain || !answers.discovery ) {
         alert('Please fill in all required fields');
         canSubmit = false;
       }
